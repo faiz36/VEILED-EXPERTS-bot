@@ -11,13 +11,7 @@
 ## Install
 
 ```sh
-npm install
-```
-
-## Run tests
-
-```sh
- 
+npm install package.json
 ```
 
 ## Author
