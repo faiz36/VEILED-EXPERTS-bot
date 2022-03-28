@@ -36,6 +36,21 @@ client.on('interactionCreate', async int => {
         let data = []
         let id;
         id = await get_id(name)
+	if(id.length === 1){
+let stats = await get_stats(id[0]["usn"])
+        let embed = new MessageEmbed()
+            .setAuthor({name: stats.data.userInfo.nickname,iconURL: stats.data.profile_image})
+            .setTitle(`${stats.data.userInfo.nickname}님의 프로필`)
+            .setURL("https://barracks.d.nexon.com/"+id[0]["usn"])
+            .addFields(
+                {name:"랭킹",value: stats.data.ranking},
+                {name: "승률", value: `${stats.data.seasonRecord.win_rate}%`},
+                {name: "K/D",value: `${stats.data.seasonRecord.kd}`},
+                {name: "대미지율",value: `${stats.data.seasonRecord.damage_rate}`},
+
+            )
+        int.reply({embeds: [embed]})
+}else{
         for (var i = 0; i < id.length; i++){
             data[i] = {}
             data[i]["label"] = 0
@@ -51,7 +66,7 @@ client.on('interactionCreate', async int => {
             );
         try{await int.reply({content: "원하는 유저명을 선택해주세요!",components: [row],ephemeral: true})
     }catch(e){int.reply("에러가 발생했습니다!\n에러 목록 : "+e+"\n**대부분 없는 닉네임 이라 그렇습니다**")}}
-
+}
 })
 
 
