@@ -26,3 +26,7 @@ Give a ⭐️ if this project helped you!
 
 ***
 _This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
+
+## TODO
+
+- [ ] 파일 분할
