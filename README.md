@@ -14,6 +14,10 @@
 npm install package.json
 ```
 
+## Contract
+
+* Discord: [Invite](https://discord.gg/zKMaHyhqXd)
+
 ## Author
 
 👤 **faiz**
@@ -24,9 +28,9 @@ npm install package.json
 
 Give a ⭐️ if this project helped you!
 
-***
-_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
-
 ## TODO
 
 - [ ] 파일 분할
+
+***
+_This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
