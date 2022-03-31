@@ -2,9 +2,13 @@ const { Client,MessageActionRow, MessageSelectMenu, MessageEmbed } = require('di
 const client = new Client({ intents: ["GUILDS", "GUILD_MESSAGES", "DIRECT_MESSAGES"], partials: ["CHANNEL"] })
 const axios = require('axios')
 const { token, client_id } = require('./config.json')
+let count;
 
 client.once('ready', () => {
     console.log('준비됨!')
+    let repeat = setInterval(() => {
+        client.user.setActivity(`봇이 켜진후 전적을 확인한 수는 ${count}번 입니다!`)
+    },1000*60)
 })
 
 client.on('interactionCreate', async int => {
@@ -24,6 +28,7 @@ client.on('interactionCreate', async int => {
 
             )
         int.reply({embeds: [embed]})
+        count += 1
     }
 
 })
@@ -50,6 +55,7 @@ let stats = await get_stats(id[0]["usn"])
 
             )
         int.reply({embeds: [embed]})
+        count += 1
 }else{
         for (var i = 0; i < id.length; i++){
             data[i] = {}
