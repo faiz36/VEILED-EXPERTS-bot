@@ -30,7 +30,7 @@ Give a ⭐️ if this project helped you!
 
 ## TODO
 
-- [ ] 파일 분할
+- [x] 파일 분할
 
 ***
 _This README was generated with ❤️by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
