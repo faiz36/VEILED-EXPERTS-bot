@@ -20,6 +20,7 @@ client.on('interactionCreate', async int => {
             .setAuthor({name: stats.data.userInfo.nickname,iconURL: stats.data.profile_image})
             .setTitle(`${stats.data.userInfo.nickname}님의 프로필`)
             .setURL("https://barracks.d.nexon.com/"+int.values[0])
+	    .setcolor("ed4313")
             .addFields(
                 {name:"랭킹",value: stats.data.ranking},
                 {name: "승률", value: `${stats.data.seasonRecord.win_rate}%`},
@@ -46,6 +47,7 @@ let stats = await get_stats(id[0]["usn"])
         let embed = new MessageEmbed()
             .setAuthor({name: stats.data.userInfo.nickname,iconURL: stats.data.profile_image})
             .setTitle(`${stats.data.userInfo.nickname}님의 프로필`)
+            .setColor("ed4313")
             .setURL("https://barracks.d.nexon.com/"+id[0]["usn"])
             .addFields(
                 {name:"랭킹",value: stats.data.ranking},
