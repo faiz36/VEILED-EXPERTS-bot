@@ -2,13 +2,25 @@ const { Client,MessageActionRow, MessageSelectMenu, MessageEmbed } = require('di
 const client = new Client({ intents: ["GUILDS", "GUILD_MESSAGES", "DIRECT_MESSAGES"], partials: ["CHANNEL"] })
 const { token, client_id } = require('./config.json')
 const { get_id, get_stats } = require('./utils/ProjectDAPI')
+const axios = require('axios')
 let count = 0;
 
 client.once('ready', () => {
+    const Guilds = client.guilds.cache.map(guild => guild.id);
     console.log('준비됨!')
+    let scount = 0;
     let repeat = setInterval(() => {
+      if (scount == 0){
         client.user.setActivity(`봇이 켜진후 전적을 확인한 수는 ${count}번 입니다!`)
-    },1000)
+        scount = 1
+      }
+        else if(scount == 1){
+          client.user.setActivity(`들어가 있는 서버 수는 ${Guilds.length}개 입니다!`)
+          scount = 0
+        }
+    },30000)
+    
+    
 })
 
 client.on('interactionCreate', async int => {
@@ -16,6 +28,11 @@ client.on('interactionCreate', async int => {
 
     if (int.customId === "pds"){
         let stats = await get_stats(int.values[0])
+        let temp = await axios({
+          url: "https://barracks.d.nexon.com/api/Record/GetSeasonRecord/202202/10046085",
+          method: "POST"
+        })
+        console.log(temp.data)
         let embed = new MessageEmbed()
             .setAuthor({name: stats.data.userInfo.nickname,iconURL: stats.data.profile_image})
             .setTitle(`${stats.data.userInfo.nickname}님의 프로필`)
