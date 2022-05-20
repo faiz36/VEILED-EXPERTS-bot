@@ -10,16 +10,18 @@ async function get_id(name) {
 }
 
 async function get_stats(id){
-    return await axios({
-        url: "https://barracks.d.nexon.com/api/Profile/GetGameProfile/" + id,
+    let stats = await axios({
+        url: "https://barracks.d.nexon.com/api/Profile/GetGameProfile/"+id,
         method: "POST",
-    }).data;
+    })
+    return stats;
 }
 
 async function get_seasonRecord(season,id){
-    return await axios({
+    let stat = await axios({
         url: `https://barracks.d.nexon.com/api/Record/GetSeasonRecord/${season}/${id}`,
         method: "POST"
-    }).data
+    })
+    return stat
 }
 module.exports = { get_id, get_stats, get_seasonRecord };

@@ -1,8 +1,8 @@
 const { Client,MessageActionRow, MessageSelectMenu, MessageEmbed } = require('discord.js')
 const client = new Client({ intents: ["GUILDS", "GUILD_MESSAGES", "DIRECT_MESSAGES"], partials: ["CHANNEL"] })
-const { token} = require('./config.json')
+const { token, client_id } = require('./config.json')
 const { get_id, get_stats, get_seasonRecord} = require('./utils/ProjectDAPI')
-
+const axios = require('axios')
 let count = 0;
 
 client.once('ready', () => {
@@ -30,16 +30,16 @@ client.on('interactionCreate', async int => {
         let stats = await get_stats(int.values[0])
         let s_stats = await get_seasonRecord(202202,int.values[0])
         let embed = new MessageEmbed()
-            .setAuthor({name: stats.userInfo.nickname,iconURL: stats.profile_image})
-            .setTitle(`${stats.userInfo.nickname}님의 프로필`)
+            .setAuthor({name: stats.data.userInfo.nickname,iconURL: stats.data.profile_image})
+            .setTitle(`${stats.data.userInfo.nickname}님의 프로필`)
             .setURL("https://barracks.d.nexon.com/"+int.values[0])
 	    .setColor("#d94e2f")
             .addFields(
-                {name:"랭킹",value: stats.ranking},
-                {name: "승률", value: `${stats.seasonRecord.win_rate}%`},
-                {name: "K/D",value: `${stats.seasonRecord.kd}`},
-                {name: "대미지율",value: `${stats.seasonRecord.damage_rate}`},
-                {name: "헤드샷율(킬당)",value: Number(s_stats.kill)/Number(s_stats.headshot+"%")}
+                {name:"랭킹",value: stats.data.ranking},
+                {name: "승률", value: `${stats.data.seasonRecord.win_rate}%`},
+                {name: "K/D",value: `${stats.data.seasonRecord.kd}`},
+                {name: "대미지율",value: `${stats.data.seasonRecord.damage_rate}`},
+                {name: "헤드샷율(킬당)",value: Number(s_stats.data.kill)/Number(s_stats.data.headshot+"%")}
 
             )
         int.reply({embeds: [embed]})
@@ -60,16 +60,16 @@ client.on('interactionCreate', async int => {
         let stats = await get_stats(id[0]["usn"])
         let s_stats = await get_seasonRecord(202202,id[0]["usn"])
         let embed = new MessageEmbed()
-            .setAuthor({name: stats.userInfo.nickname,iconURL: stats.profile_image})
-            .setTitle(`${stats.userInfo.nickname}님의 프로필`)
+            .setAuthor({name: stats.data.userInfo.nickname,iconURL: stats.data.profile_image})
+            .setTitle(`${stats.data.userInfo.nickname}님의 프로필`)
             .setURL("https://barracks.d.nexon.com/"+id[0]["usn"])
             .setColor("#d94e2f")
             .addFields(
-                {name:"랭킹",value: stats.ranking},
-                {name: "승률", value: `${stats.seasonRecord.win_rate}%`},
-                {name: "K/D",value: `${stats.seasonRecord.kd}`},
-                {name: "대미지율",value: `${stats.seasonRecord.damage_rate}`},
-                {name: "헤드샷율(킬당)",value: Number(s_stats.kill)/Number(s_stats.headshot+"%")}
+                {name:"랭킹",value: stats.data.ranking},
+                {name: "승률", value: `${stats.data.seasonRecord.win_rate}%`},
+                {name: "K/D",value: `${stats.data.seasonRecord.kd}`},
+                {name: "대미지율",value: `${stats.data.seasonRecord.damage_rate}`},
+                {name: "헤드샷율(킬당)",value: Number(s_stats.data.kill)/Number(s_stats.data.headshot+"%")}
 
             )
         int.reply({embeds: [embed]})
