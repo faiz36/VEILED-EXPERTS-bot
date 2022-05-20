@@ -39,7 +39,7 @@ client.on('interactionCreate', async int => {
                 {name: "승률", value: `${stats.data.seasonRecord.win_rate}%`},
                 {name: "K/D",value: `${stats.data.seasonRecord.kd}`},
                 {name: "대미지율",value: `${stats.data.seasonRecord.damage_rate}`},
-                {name: "헤드샷율(킬당)",value: String(Number(s_stats.data.kill)/Number(s_stats.data.headshot+"%"))}
+                {name: "헤드샷율(킬당)",value: String((s_stats.data.headshot/s_stats["data"]["kill"]).toPrecision(2))+"%"}
 
             )
         int.reply({embeds: [embed]})
@@ -59,6 +59,7 @@ client.on('interactionCreate', async int => {
 	if(id.length === 1){
         let stats = await get_stats(id[0]["usn"])
         let s_stats = await get_seasonRecord(202202,id[0]["usn"])
+
         let embed = new MessageEmbed()
             .setAuthor({name: stats.data.userInfo.nickname,iconURL: stats.data.profile_image})
             .setTitle(`${stats.data.userInfo.nickname}님의 프로필`)
@@ -69,7 +70,7 @@ client.on('interactionCreate', async int => {
                 {name: "승률", value: `${stats.data.seasonRecord.win_rate}%`},
                 {name: "K/D",value: `${stats.data.seasonRecord.kd}`},
                 {name: "대미지율",value: `${stats.data.seasonRecord.damage_rate}`},
-                {name: "헤드샷율(킬당)",value: String(Number(s_stats.data.kill)/Number(s_stats.data.headshot+"%"))}
+                {name: "헤드샷율(킬당)",value: String((s_stats.data.headshot/s_stats["data"]["kill"]).toPrecision(2))+"%"}
 
             )
         int.reply({embeds: [embed]})

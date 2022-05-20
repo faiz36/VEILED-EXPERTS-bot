@@ -22,6 +22,6 @@ async function get_seasonRecord(season,id){
         url: `https://barracks.d.nexon.com/api/Record/GetSeasonRecord/${season}/${id}`,
         method: "POST"
     })
-    return stat
+    return stat;
 }
 module.exports = { get_id, get_stats, get_seasonRecord };
