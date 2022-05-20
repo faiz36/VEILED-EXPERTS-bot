@@ -30,8 +30,8 @@ client.on('interactionCreate', async int => {
         let stats = await get_stats(int.values[0])
         let s_stats = await get_seasonRecord(202202,int.values[0])
         let embed = new MessageEmbed()
-            .setAuthor({name: stats.data.userInfo.nickname,iconURL: stats.data.profile_image})
-            .setTitle(`${stats.data.userInfo.nickname}님의 프로필`)
+            .setAuthor({name: stats.userInfo.nickname,iconURL: stats.profile_image})
+            .setTitle(`${stats.userInfo.nickname}님의 프로필`)
             .setURL("https://barracks.d.nexon.com/"+int.values[0])
 	    .setColor("#d94e2f")
             .addFields(
@@ -60,8 +60,8 @@ client.on('interactionCreate', async int => {
         let stats = await get_stats(id[0]["usn"])
         let s_stats = await get_seasonRecord(202202,id[0]["usn"])
         let embed = new MessageEmbed()
-            .setAuthor({name: stats.data.userInfo.nickname,iconURL: stats.data.profile_image})
-            .setTitle(`${stats.data.userInfo.nickname}님의 프로필`)
+            .setAuthor({name: stats.userInfo.nickname,iconURL: stats.profile_image})
+            .setTitle(`${stats.userInfo.nickname}님의 프로필`)
             .setURL("https://barracks.d.nexon.com/"+id[0]["usn"])
             .setColor("#d94e2f")
             .addFields(
