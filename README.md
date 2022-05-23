@@ -31,6 +31,7 @@ Give a ⭐️ if this project helped you!
 ## TODO
 
 - [x] 파일 분할
+- [x] 헤드샷율 추가
 
 ***
 _This README was generated with ❤️by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
