@@ -39,7 +39,7 @@ client.on('interactionCreate', async int => {
                 {name: "승률", value: `${stats.data.seasonRecord.win_rate}%`},
                 {name: "K/D",value: `${stats.data.seasonRecord.kd}`},
                 {name: "대미지율",value: `${stats.data.seasonRecord.damage_rate}`},
-                {name: "헤드샷율(킬당)",value: String((s_stats.data.headshot/s_stats["data"]["kill"]).toPrecision(2))+"%"}
+                {name: "헤드샷율(킬당)",value: String((s_stats.data.headshot/s_stats["data"]["kill"]*100).toPrecision(3))+"%"}
 
             )
         int.reply({embeds: [embed]})
@@ -70,7 +70,7 @@ client.on('interactionCreate', async int => {
                 {name: "승률", value: `${stats.data.seasonRecord.win_rate}%`},
                 {name: "K/D",value: `${stats.data.seasonRecord.kd}`},
                 {name: "대미지율",value: `${stats.data.seasonRecord.damage_rate}`},
-                {name: "헤드샷율(킬당)",value: String((s_stats.data.headshot/s_stats["data"]["kill"]).toPrecision(2))+"%"}
+                {name: "헤드샷율(킬당)",value: String((s_stats.data.headshot/s_stats["data"]["kill"]*100).toPrecision(3))+"%"}
 
             )
         int.reply({embeds: [embed]})
