@@ -1,8 +1,7 @@
 const { Client,MessageActionRow, MessageSelectMenu, MessageEmbed } = require('discord.js')
 const client = new Client({ intents: ["GUILDS", "GUILD_MESSAGES", "DIRECT_MESSAGES"], partials: ["CHANNEL"] })
-const { token, client_id } = require('./config.json')
-const { get_id, get_stats, get_seasonRecord} = require('./utils/ProjectDAPI')
-const axios = require('axios')
+const { token } = require('./config.json')
+const { get_id, get_stats, get_seasonRecord} = require('./utils/VEILED_EXPERTS')
 let count = 0;
 
 client.once('ready', () => {
