@@ -1,4 +1,4 @@
-<h1 align="center">Welcome to Project D Stat 👋</h1>
+<h1 align="center">Welcome to VEILED EXPERTS Stat 👋</h1>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-0.0.2-blue.svg?cacheSeconds=2592000" />
   <a href="#" target="_blank">
@@ -6,7 +6,7 @@
   </a>
 </p>
 
-> 프로젝트 D의 전적을 확인하는 봇입니다!
+> VEILED EXPERTS의 전적을 확인하는 봇입니다!
 
 ## Install
 
