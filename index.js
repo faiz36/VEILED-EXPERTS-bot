@@ -1,7 +1,7 @@
 const { Client,MessageActionRow, MessageSelectMenu, MessageEmbed } = require('discord.js')
 const client = new Client({ intents: ["GUILDS", "GUILD_MESSAGES", "DIRECT_MESSAGES"], partials: ["CHANNEL"] })
 const { token } = require('./config.json')
-const { get_id, get_stats, get_seasonRecord} = require('./utils/VEILED_EXPERTS')
+const { get_id, get_stats, get_seasonRecord} = require('./utils/VEILED_EXPERTS-API')
 let count = 0;
 
 client.once('ready', () => {
@@ -29,7 +29,7 @@ client.on('interactionCreate', async int => {
         let stats = await get_stats(int.values[0])
         let s_stats = await get_seasonRecord(202202,int.values[0])
         let embed = new MessageEmbed()
-            .setAuthor({name: stats.data.userInfo.nickname,iconURL: stats.data.profile_image})
+            .setAuthor({name: stats.data.userInfo.block_flag===1 ? stats.data.userInfo.nickname + "(자격박탈)":"",iconURL: stats.data.profile_image})
             .setTitle(`${stats.data.userInfo.nickname}님의 프로필`)
             .setURL("https://barracks.d.nexon.com/"+int.values[0])
 	    .setColor("#d94e2f")
@@ -38,7 +38,8 @@ client.on('interactionCreate', async int => {
                 {name: "승률", value: `${stats.data.seasonRecord.win_rate}%`},
                 {name: "K/D",value: `${stats.data.seasonRecord.kd}`},
                 {name: "대미지율",value: `${stats.data.seasonRecord.damage_rate}`},
-                {name: "헤드샷율(킬당)",value: String((s_stats.data.headshot/s_stats["data"]["kill"]*100).toPrecision(3))+"%"}
+                {name: "헤드샷율(킬당)",value: String((s_stats.data.headshot/s_stats["data"]["kill"]*100).toPrecision(3))+"%"},
+                {name: "자격박탈 여부",value: stats.data.userInfo.block_flag===1 ? "O" : "X"}
 
             )
         int.reply({embeds: [embed]})
@@ -58,9 +59,8 @@ client.on('interactionCreate', async int => {
 	if(id.length === 1){
         let stats = await get_stats(id[0]["usn"])
         let s_stats = await get_seasonRecord(202202,id[0]["usn"])
-
         let embed = new MessageEmbed()
-            .setAuthor({name: stats.data.userInfo.nickname,iconURL: stats.data.profile_image})
+            .setAuthor({name: stats.data.userInfo.block_flag===1 ? stats.data.userInfo.nickname + "(자격박탈)":"",iconURL: stats.data.profile_image})
             .setTitle(`${stats.data.userInfo.nickname}님의 프로필`)
             .setURL("https://barracks.d.nexon.com/"+id[0]["usn"])
             .setColor("#d94e2f")
@@ -69,7 +69,8 @@ client.on('interactionCreate', async int => {
                 {name: "승률", value: `${stats.data.seasonRecord.win_rate}%`},
                 {name: "K/D",value: `${stats.data.seasonRecord.kd}`},
                 {name: "대미지율",value: `${stats.data.seasonRecord.damage_rate}`},
-                {name: "헤드샷율(킬당)",value: String((s_stats.data.headshot/s_stats["data"]["kill"]*100).toPrecision(3))+"%"}
+                {name: "헤드샷율(킬당)",value: String((s_stats.data.headshot/s_stats["data"]["kill"]*100).toPrecision(3))+"%"},
+                {name: "자격박탈 여부",value: stats.data.userInfo.block_flag===1 ? "O" : "X"}
 
             )
         int.reply({embeds: [embed]})
