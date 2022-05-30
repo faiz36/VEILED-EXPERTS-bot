@@ -28,19 +28,19 @@ client.on('interactionCreate', async int => {
     if (int.customId === "pds"){
         let stats = await get_stats(int.values[0])
         let s_stats = await get_seasonRecord(202202,int.values[0])
+        let kill = s_stats.data.kill.replaceAll(',','')
+        let headshot = s_stats.data.headshot.replaceAll(',','')
         let embed = new MessageEmbed()
-            .setAuthor({name: stats.data.userInfo.block_flag===1 ? stats.data.userInfo.nickname + "(자격박탈)":"",iconURL: stats.data.profile_image})
+            .setAuthor({name: stats.data.userInfo.block_flag===1 ? stats.data.userInfo.nickname + "(자격박탈)":stats.data.userInfo.nickname,iconURL: stats.data.profile_image})
             .setTitle(`${stats.data.userInfo.nickname}님의 프로필`)
-            .setURL("https://barracks.d.nexon.com/"+int.values[0])
+            .setURL("https://stats.vx.nexon.com/"+int.values[0])
 	    .setColor("#d94e2f")
             .addFields(
                 {name:"랭킹",value: stats.data.ranking},
                 {name: "승률", value: `${stats.data.seasonRecord.win_rate}%`},
                 {name: "K/D",value: `${stats.data.seasonRecord.kd}`},
                 {name: "대미지율",value: `${stats.data.seasonRecord.damage_rate}`},
-                {name: "헤드샷율(킬당)",value: String((s_stats.data.headshot/s_stats["data"]["kill"]*100).toPrecision(3))+"%"},
-                {name: "자격박탈 여부",value: stats.data.userInfo.block_flag===1 ? "O" : "X"}
-
+                {name: "헤드샷율(킬당)",value: String((headshot/kill*100).toPrecision(3))+"%"},
             )
         int.reply({embeds: [embed]})
         count = count + 1
@@ -59,19 +59,19 @@ client.on('interactionCreate', async int => {
 	if(id.length === 1){
         let stats = await get_stats(id[0]["usn"])
         let s_stats = await get_seasonRecord(202202,id[0]["usn"])
+        let kill = s_stats.data.kill.replaceAll(',','')
+        let headshot = s_stats.data.headshot.replaceAll(',','')
         let embed = new MessageEmbed()
-            .setAuthor({name: stats.data.userInfo.block_flag===1 ? stats.data.userInfo.nickname + "(자격박탈)":"",iconURL: stats.data.profile_image})
+            .setAuthor({name: stats.data.userInfo.block_flag===1 ? stats.data.userInfo.nickname + "(자격박탈)":stats.data.userInfo.nickname,iconURL: stats.data.profile_image})
             .setTitle(`${stats.data.userInfo.nickname}님의 프로필`)
-            .setURL("https://barracks.d.nexon.com/"+id[0]["usn"])
+            .setURL("https://stats.vx.nexon.com/"+id[0]["usn"])
             .setColor("#d94e2f")
             .addFields(
                 {name:"랭킹",value: stats.data.ranking},
                 {name: "승률", value: `${stats.data.seasonRecord.win_rate}%`},
                 {name: "K/D",value: `${stats.data.seasonRecord.kd}`},
                 {name: "대미지율",value: `${stats.data.seasonRecord.damage_rate}`},
-                {name: "헤드샷율(킬당)",value: String((s_stats.data.headshot/s_stats["data"]["kill"]*100).toPrecision(3))+"%"},
-                {name: "자격박탈 여부",value: stats.data.userInfo.block_flag===1 ? "O" : "X"}
-
+                {name: "헤드샷율(킬당)",value: String((headshot/kill*100).toPrecision(3))+"%"},
             )
         int.reply({embeds: [embed]})
         count = count + 1
