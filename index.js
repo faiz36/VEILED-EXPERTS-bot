@@ -5,10 +5,10 @@ const { get_id, get_stats, get_seasonRecord} = require('./utils/VEILED_EXPERTS-A
 let count = 0;
 
 client.once('ready', () => {
-    const Guilds = client.guilds.cache.map(guild => guild.id);
     console.log('준비됨!')
     let scount = 0;
     let repeat = setInterval(() => {
+      const Guilds = client.guilds.cache.map(guild => guild.id);
       if (scount === 0){
         client.user.setActivity(`봇이 켜진후 전적을 확인한 수는 ${count}번 입니다!`)
         scount = 1
