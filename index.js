@@ -57,6 +57,7 @@ client.on('interactionCreate', async int => {
     if (int.commandName === "전적"){
         let name = int.options.getString("유저명")
         await IntStat(int, name)
+        count += 1
 }
 })
 
