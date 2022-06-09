@@ -2,7 +2,12 @@ const { Client,MessageActionRow, MessageSelectMenu, MessageEmbed } = require('di
 const client = new Client({ intents: ["GUILDS", "GUILD_MESSAGES", "DIRECT_MESSAGES"], partials: ["CHANNEL"] })
 const { token } = require('./config.json')
 const { get_id, get_stats, get_seasonRecord} = require('./utils/VEILED_EXPERTS-API')
+const {IntStat} = require("./utils/stat");
 let count = 0;
+
+function logger(){
+
+}
 
 client.once('ready', () => {
     console.log('준비됨!')
@@ -22,29 +27,27 @@ client.once('ready', () => {
     
 })
 
-client.on('interactionCreate', async int => {
-    if (!int.isSelectMenu()) return;
+client.on('guildCreate',guild=>{
+    const Guilds = client.guilds.cache.map(guild => guild.id);
+    name = guild.name
+    embed = new MessageEmbed()
+        .setTitle("**서버 가입(JOINED)**")
+        .setColor("#d94e2f")
+        .addField("**서버**",name)
+        .addField("**서버수**",Guilds.length+"개")
+    client.channels.cache.get("982252782373449728").send({embeds: [embed]})
 
-    if (int.customId === "pds"){
-        let stats = await get_stats(int.values[0])
-        let s_stats = await get_seasonRecord(202202,int.values[0])
-        let kill = s_stats.data.kill.replaceAll(',','')
-        let headshot = s_stats.data.headshot.replaceAll(',','')
-        let embed = new MessageEmbed()
-            .setAuthor({name: stats.data.userInfo.block_flag===1 ? stats.data.userInfo.nickname + "(자격박탈)":stats.data.userInfo.nickname,iconURL: stats.data.profile_image})
-            .setTitle(`${stats.data.userInfo.nickname}님의 프로필`)
-            .setURL("https://stats.vx.nexon.com/"+int.values[0])
-	    .setColor("#d94e2f")
-            .addFields(
-                {name:"랭킹",value: stats.data.ranking},
-                {name: "승률", value: `${stats.data.seasonRecord.win_rate}%`},
-                {name: "K/D",value: `${stats.data.seasonRecord.kd}`},
-                {name: "대미지율",value: `${stats.data.seasonRecord.damage_rate}`},
-                {name: "헤드샷율(킬당)",value: String((headshot/kill*100).toPrecision(3))+"%"},
-            )
-        int.reply({embeds: [embed]})
-        count = count + 1
-    }
+})
+
+client.on('guildDelete',guild=>{
+    const Guilds = client.guilds.cache.map(guild => guild.id);
+    name = guild.name
+    embed = new MessageEmbed()
+        .setTitle("**서버 탈퇴(REMOVED)**")
+        .setColor("#d94e2f")
+        .addField("**서버**",name,false)
+        .addField("**서버수**",Guilds.length+"개",false)
+    client.channels.cache.get("982252782373449728").send({embeds: [embed]})
 
 })
 
@@ -53,44 +56,7 @@ client.on('interactionCreate', async int => {
 
     if (int.commandName === "전적"){
         let name = int.options.getString("유저명")
-        let data = []
-        let id;
-        id = await get_id(name)
-	if(id.length === 1){
-        let stats = await get_stats(id[0]["usn"])
-        let s_stats = await get_seasonRecord(202202,id[0]["usn"])
-        let kill = s_stats.data.kill.replaceAll(',','')
-        let headshot = s_stats.data.headshot.replaceAll(',','')
-        let embed = new MessageEmbed()
-            .setAuthor({name: stats.data.userInfo.block_flag===1 ? stats.data.userInfo.nickname + "(자격박탈)":stats.data.userInfo.nickname,iconURL: stats.data.profile_image})
-            .setTitle(`${stats.data.userInfo.nickname}님의 프로필`)
-            .setURL("https://stats.vx.nexon.com/"+id[0]["usn"])
-            .setColor("#d94e2f")
-            .addFields(
-                {name:"랭킹",value: stats.data.ranking},
-                {name: "승률", value: `${stats.data.seasonRecord.win_rate}%`},
-                {name: "K/D",value: `${stats.data.seasonRecord.kd}`},
-                {name: "대미지율",value: `${stats.data.seasonRecord.damage_rate}`},
-                {name: "헤드샷율(킬당)",value: String((headshot/kill*100).toPrecision(3))+"%"},
-            )
-        int.reply({embeds: [embed]})
-        count = count + 1
-}else{
-        for (var i = 0; i < id.length; i++){
-            data[i] = {}
-            data[i]["label"] = 0
-            data[i]["label"] = id[i]["nickname"]
-            data[i]["value"] = id[i]["usn"]
-        }
-        const row = new MessageActionRow()
-            .addComponents(
-                new MessageSelectMenu()
-                    .setCustomId('pds')
-                    .setPlaceholder('원하는 유저명을 선택해주세요!')
-                    .addOptions(data)
-            );
-        try{await int.reply({content: "원하는 유저명을 선택해주세요!",components: [row],ephemeral: true})
-    }catch(e){int.reply("에러가 발생했습니다!\n에러 목록 : "+e+"\n**대부분 없는 닉네임 이라 그렇습니다**")}}
+        await IntStat(int, name)
 }
 })
 
