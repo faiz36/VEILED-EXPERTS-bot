@@ -2,7 +2,7 @@ const axios = require('axios')
 
 async function get_id(name) {
     let id = await axios({
-        url: "https://stats.vx.nexon.com/api/Search/GetSearchRead/"+encodeURI(name),
+        url: "https://globalstats.vx.nexon.com/api/Search/GetSearchRead/"+encodeURI(name),
         method: "POST",
 
     })
@@ -11,14 +11,14 @@ async function get_id(name) {
 
 async function get_stats(id){
     return axios({
-        url: "https://stats.vx.nexon.com/api/Profile/GetGameProfile/" + id,
+        url: "https://globalstats.vx.nexon.com/api/Profile/GetGameProfile/" + id,
         method: "POST",
     });
 }
 
 async function get_seasonRecord(season,id){
     return axios({
-        url: `https://stats.vx.nexon.com/api/Record/GetSeasonRecord/${season}/${id}`,
+        url: `https://globalstats.vx.nexon.com/api/Record/GetSeasonRecord/${season}/${id}`,
         method: "POST"
     });
 }
