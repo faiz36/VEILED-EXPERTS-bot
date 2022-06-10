@@ -57,7 +57,7 @@ client.on('interactionCreate', async int => {
         count += 1
 }
     else if (int.commandName === "통계"){
-        await Int_statics()
+        await Int_statics(int)
     }
 })
 
