@@ -213,6 +213,8 @@ async function Int_statics(int = require(Interaction)) {
                         {name: `4. ${f(data.perk[0]["name"])}`,value:`${data.perk[0]["value"]}%`},
                         {name: `5. ${f(data.perk[0]["name"])}`,value:`${data.perk[0]["value"]}%`},
                     )
+                int.editReply({embed: [PEmbed],components: [row]})
+                break
 
         }
     })
