@@ -3,11 +3,8 @@ const client = new Client({ intents: ["GUILDS", "GUILD_MESSAGES", "DIRECT_MESSAG
 const { token } = require('./config.json')
 const { get_id, get_stats, get_seasonRecord} = require('./utils/VEILED_EXPERTS-API')
 const {IntStat} = require("./utils/stat");
+const {Int_stat, Int_statics} = require("./utils/Statics");
 let count = 0;
-
-function logger(){
-
-}
 
 client.once('ready', () => {
     console.log('준비됨!')
@@ -59,6 +56,9 @@ client.on('interactionCreate', async int => {
         await IntStat(int, name)
         count += 1
 }
+    else if (int.commandName === "통계"){
+        await Int_statics()
+    }
 })
 
 

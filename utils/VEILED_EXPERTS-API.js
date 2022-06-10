@@ -22,4 +22,8 @@ async function get_seasonRecord(season,id){
         method: "POST"
     });
 }
-module.exports = { get_id, get_stats, get_seasonRecord };
+
+async function get_statics(){
+    return (await (axios.post('https://globalstats.vx.nexon.com/api/Statistics/GetRead'))).data
+}
+module.exports = { get_id, get_stats, get_seasonRecord,get_statics };
