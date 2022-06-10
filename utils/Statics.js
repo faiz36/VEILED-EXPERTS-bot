@@ -207,11 +207,11 @@ async function Int_statics(int = require(Interaction)) {
                 let PEmbed = new MessageEmbed()
                     .setTitle("통계 - 렙톤 선호도")
                     .addFields(
-                        {name: `1. ${f(data.perk[0][name])}`,value:`${data.perk[0][value]}%`},
-                        {name: `2. ${f(data.perk[0][name])}`,value:`${data.perk[0][value]}%`},
-                        {name: `3. ${f(data.perk[0][name])}`,value:`${data.perk[0][value]}%`},
-                        {name: `4. ${f(data.perk[0][name])}`,value:`${data.perk[0][value]}%`},
-                        {name: `5. ${f(data.perk[0][name])}`,value:`${data.perk[0][value]}%`},
+                        {name: `1. ${f(data.perk[0]["name"])}`,value:`${data.perk[0]["value"]}%`},
+                        {name: `2. ${f(data.perk[0]["name"])}`,value:`${data.perk[0]["value"]}%`},
+                        {name: `3. ${f(data.perk[0]["name"])}`,value:`${data.perk[0]["value"]}%`},
+                        {name: `4. ${f(data.perk[0]["name"])}`,value:`${data.perk[0]["value"]}%`},
+                        {name: `5. ${f(data.perk[0]["name"])}`,value:`${data.perk[0]["value"]}%`},
                     )
 
         }
