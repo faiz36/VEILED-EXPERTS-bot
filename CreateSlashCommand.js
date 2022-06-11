@@ -11,10 +11,13 @@ const rest = new REST({version: '9'}).setToken(token);
             { body: [data = new SlashCommandBuilder()
                     .setName('전적')
                     .setDescription('전적을 확인합니다.')
-                    .addStringOption(option => option.setName('유저명').setDescription("프로젝트 D의 유저이름을 적어주세요!").setRequired(true)),
+                    .addStringOption(option => option.setName('유저명').setDescription("VX의 유저이름을 적어주세요!").setRequired(true)),
                     data = new SlashCommandBuilder()
                         .setName("통계")
-                        .setDescription("VX의 통계를 확인합니다.")
+                        .setDescription("VX의 통계를 확인합니다."),
+                    data = new SlashCommandBuilder()
+                        .setName("랭킹")
+                        .setDescription("VX 유저의 랭킹을 확인합니다.")
                 ]
             }
         )

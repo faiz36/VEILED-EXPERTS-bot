@@ -56,6 +56,15 @@ async function Int_statics(int = require(Interaction)) {
         )
     int.reply({embeds: [ FEmbed ],components: [ row ]})
 
+    setTimeout(()=>{
+        let TEmbed = new MessageEmbed()
+            .setTitle("통계")
+            .setFields({name:"타임아웃 되셨습니다 다시 명령어를 실행해주세요."})
+            .setThumbnail("https://globalvx.dn.nexoncdn.co.kr/Web/barracks/logo_symbol.png")
+            .setColor("#d94e2f")
+        int.editReply({embeds: [TEmbed],components: []})
+    },1000*100)
+
     let filter = f => {
         return int.id === f.message.interaction.id
     }
@@ -87,6 +96,7 @@ async function Int_statics(int = require(Interaction)) {
                 int.editReply({embeds: [ AEmbed ],components: [row]})
                 break
             case "agent":
+                acount = 0
                 c.deferUpdate()
                 let AGEmbed = new MessageEmbed()
                     .setTitle("**통계 - 요원(가해량 순)**")
@@ -119,6 +129,7 @@ async function Int_statics(int = require(Interaction)) {
                 int.editReply({embeds: [ AGEmbed ],components: [arow,row]})
                 break
             case "weapon":
+                wcount = 0
                 c.deferUpdate()
                 WEmbed = new MessageEmbed()
                     .setTitle("통계 - 무기(선호도 순)")
@@ -169,13 +180,13 @@ async function Int_statics(int = require(Interaction)) {
                     .setTitle("통계 - 아이템 사용 평균")
                     .addFields(
                         {name: `1. ${f(data.item_use[0]["item_name"])}`,value:`${data.item_use[0]["use_per"]}회`},
-                        {name: `1. ${f(data.item_use[1]["item_name"])}`,value:`${data.item_use[1]["use_per"]}회`},
-                        {name: `1. ${f(data.item_use[2]["item_name"])}`,value:`${data.item_use[2]["use_per"]}회`},
-                        {name: `1. ${f(data.item_use[3]["item_name"])}`,value:`${data.item_use[3]["use_per"]}회`},
-                        {name: `1. ${f(data.item_use[4]["item_name"])}`,value:`${data.item_use[4]["use_per"]}회`},
-                        {name: `1. ${f(data.item_use[5]["item_name"])}`,value:`${data.item_use[5]["use_per"]}회`},
-                        {name: `1. ${f(data.item_use[6]["item_name"])}`,value:`${data.item_use[6]["use_per"]}회`},
-                        {name: `1. ${f(data.item_use[7]["item_name"])}`,value:`${data.item_use[7]["use_per"]}회`}
+                        {name: `2. ${f(data.item_use[1]["item_name"])}`,value:`${data.item_use[1]["use_per"]}회`},
+                        {name: `3. ${f(data.item_use[2]["item_name"])}`,value:`${data.item_use[2]["use_per"]}회`},
+                        {name: `4. ${f(data.item_use[3]["item_name"])}`,value:`${data.item_use[3]["use_per"]}회`},
+                        {name: `5. ${f(data.item_use[4]["item_name"])}`,value:`${data.item_use[4]["use_per"]}회`},
+                        {name: `6. ${f(data.item_use[5]["item_name"])}`,value:`${data.item_use[5]["use_per"]}회`},
+                        {name: `7. ${f(data.item_use[6]["item_name"])}`,value:`${data.item_use[6]["use_per"]}회`},
+                        {name: `8. ${f(data.item_use[7]["item_name"])}`,value:`${data.item_use[7]["use_per"]}회`}
                     )
                     .setThumbnail("https://globalvx.dn.nexoncdn.co.kr/Web/barracks/logo_symbol.png")
                     .setColor("#d94e2f")
@@ -186,13 +197,13 @@ async function Int_statics(int = require(Interaction)) {
                 let FEmbed = new MessageEmbed()
                     .setTitle("통계 - 펀딩")
                     .addFields(
-                        {name: "1라운드",value: `전술 : ${data.round.funding_list[0]["tactic"]}%\n장비 : ${data.round.funding_list[0]["equipment"]}%\n화기 : ${data.round.funding_list[0]["weapon"]}%`},
-                        {name: "2라운드",value: `전술 : ${data.round.funding_list[1]["tactic"]}%\n장비 : ${data.round.funding_list[1]["equipment"]}%\n화기 : ${data.round.funding_list[1]["weapon"]}%`},
-                        {name: "3라운드",value: `전술 : ${data.round.funding_list[2]["tactic"]}%\n장비 : ${data.round.funding_list[2]["equipment"]}%\n화기 : ${data.round.funding_list[2]["weapon"]}%`},
-                        {name: "4라운드",value: `전술 : ${data.round.funding_list[3]["tactic"]}%\n장비 : ${data.round.funding_list[3]["equipment"]}%\n화기 : ${data.round.funding_list[3]["weapon"]}%`},
-                        {name: "5라운드",value: `전술 : ${data.round.funding_list[4]["tactic"]}%\n장비 : ${data.round.funding_list[4]["equipment"]}%\n화기 : ${data.round.funding_list[4]["weapon"]}%`},
-                        {name: "6라운드",value: `전술 : ${data.round.funding_list[5]["tactic"]}%\n장비 : ${data.round.funding_list[5]["equipment"]}%\n화기 : ${data.round.funding_list[5]["weapon"]}%`},
-                        {name: "7라운드",value: `전술 : ${data.round.funding_list[6]["tactic"]}%\n장비 : ${data.round.funding_list[6]["equipment"]}%\n화기 : ${data.round.funding_list[6]["weapon"]}%`},
+                        {name: "1라운드",value: `전술 : ${data.round.funding_list[0]["tactic"]}%\n장비 : ${data.round.funding_list[0]["equipment"]}%\n화기 : ${data.round.funding_list[0]["weapon"]}%`,inline:true},
+                        {name: "2라운드",value: `전술 : ${data.round.funding_list[1]["tactic"]}%\n장비 : ${data.round.funding_list[1]["equipment"]}%\n화기 : ${data.round.funding_list[1]["weapon"]}%`,inline:true},
+                        {name: "3라운드",value: `전술 : ${data.round.funding_list[2]["tactic"]}%\n장비 : ${data.round.funding_list[2]["equipment"]}%\n화기 : ${data.round.funding_list[2]["weapon"]}%`,inline:true},
+                        {name: "4라운드",value: `전술 : ${data.round.funding_list[3]["tactic"]}%\n장비 : ${data.round.funding_list[3]["equipment"]}%\n화기 : ${data.round.funding_list[3]["weapon"]}%`,inline:true},
+                        {name: "5라운드",value: `전술 : ${data.round.funding_list[4]["tactic"]}%\n장비 : ${data.round.funding_list[4]["equipment"]}%\n화기 : ${data.round.funding_list[4]["weapon"]}%`,inline:true},
+                        {name: "6라운드",value: `전술 : ${data.round.funding_list[5]["tactic"]}%\n장비 : ${data.round.funding_list[5]["equipment"]}%\n화기 : ${data.round.funding_list[5]["weapon"]}%`,inline:true},
+                        {name: "7라운드",value: `전술 : ${data.round.funding_list[6]["tactic"]}%\n장비 : ${data.round.funding_list[6]["equipment"]}%\n화기 : ${data.round.funding_list[6]["weapon"]}%`,inline:true},
                     )
                     .setThumbnail("https://globalvx.dn.nexoncdn.co.kr/Web/barracks/logo_symbol.png")
                     .setColor("#d94e2f")
@@ -204,14 +215,15 @@ async function Int_statics(int = require(Interaction)) {
                     .setTitle("통계 - 렙톤 선호도")
                     .addFields(
                         {name: `1. ${f(data.perk[0]["name"])}`,value:`${data.perk[0]["value"]}%`},
-                        {name: `2. ${f(data.perk[0]["name"])}`,value:`${data.perk[0]["value"]}%`},
-                        {name: `3. ${f(data.perk[0]["name"])}`,value:`${data.perk[0]["value"]}%`},
-                        {name: `4. ${f(data.perk[0]["name"])}`,value:`${data.perk[0]["value"]}%`},
-                        {name: `5. ${f(data.perk[0]["name"])}`,value:`${data.perk[0]["value"]}%`},
+                        {name: `2. ${f(data.perk[1]["name"])}`,value:`${data.perk[1]["value"]}%`},
+                        {name: `3. ${f(data.perk[2]["name"])}`,value:`${data.perk[2]["value"]}%`},
+                        {name: `4. ${f(data.perk[3]["name"])}`,value:`${data.perk[3]["value"]}%`},
+                        {name: `5. ${f(data.perk[4]["name"])}`,value:`${data.perk[4]["value"]}%`},
                     )
-                int.editReply({embed: [PEmbed],components: [row]})
+                    .setThumbnail("https://globalvx.dn.nexoncdn.co.kr/Web/barracks/logo_symbol.png")
+                    .setColor("#d94e2f")
+                int.editReply({embeds: [PEmbed],components: [row]})
                 break
-
         }
     })
 

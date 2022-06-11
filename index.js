@@ -1,9 +1,8 @@
-const { Client,MessageActionRow, MessageSelectMenu, MessageEmbed } = require('discord.js')
+const { Client,MessageEmbed } = require('discord.js')
 const client = new Client({ intents: ["GUILDS", "GUILD_MESSAGES", "DIRECT_MESSAGES"], partials: ["CHANNEL"] })
 const { token } = require('./config.json')
-const { get_id, get_stats, get_seasonRecord} = require('./utils/VEILED_EXPERTS-API')
 const {IntStat} = require("./utils/stat");
-const {Int_stat, Int_statics} = require("./utils/Statics");
+const {Int_statics} = require("./utils/Statics");
 let count = 0;
 
 client.once('ready', () => {
