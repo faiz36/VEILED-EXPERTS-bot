@@ -2,7 +2,7 @@ const {Interaction, MessageEmbed, MessageActionRow, MessageSelectMenu} = require
 const {get_id, get_stats, get_seasonRecord} = require("./VEILED_EXPERTS-API");
 
 async function IntStat(int = require(Interaction), nick) {
-    int.deferReply()
+    await int.deferReply()
     let data = []
     let id;
     id = await get_id(nick)
