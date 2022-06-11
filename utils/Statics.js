@@ -1,5 +1,6 @@
 const {Interaction, MessageEmbed, MessageActionRow, MessageSelectMenu, MessageComponentInteraction, MessageButton} = require("discord.js");
 const {get_statics} = require("./VEILED_EXPERTS-API");
+const {Embed} = require("@discordjs/builders");
 
 async function Int_statics(int = require(Interaction)) {
     let acount = 0
@@ -59,7 +60,7 @@ async function Int_statics(int = require(Interaction)) {
     setTimeout(()=>{
         let TEmbed = new MessageEmbed()
             .setTitle("통계")
-            .setFields({name:"타임아웃 되셨습니다 다시 명령어를 실행해주세요.",value:""})
+            .setFields({name:"타임아웃 되셨습니다 다시 명령어를 실행해주세요.",value:"ㅤ"})
             .setThumbnail("https://globalvx.dn.nexoncdn.co.kr/Web/barracks/logo_symbol.png")
             .setColor("#d94e2f")
         int.editReply({embeds: [TEmbed],components: []})
