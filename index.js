@@ -3,6 +3,7 @@ const client = new Client({ intents: ["GUILDS", "GUILD_MESSAGES", "DIRECT_MESSAG
 const { token } = require('./config.json')
 const {IntStat} = require("./utils/stat");
 const {Int_statics} = require("./utils/Statics");
+const axios = require("axios");
 let count = 0;
 
 client.once('ready', () => {
@@ -19,6 +20,23 @@ client.once('ready', () => {
           scount = 0
         }
     },30000)
+    setInterval(async () => {
+        const Guilds = client.guilds.cache.map(guild => guild.id);
+        const token = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk1NzI1ODE1NTE5NTIzNjQwMiIsImlhdCI6MTY1NDI1NTcwMX0.dDUgpVtow4It27D64BgE8i6aCWlrfPxf7P_WwtUVuwPE1_etFeVGcNmyVKMi7xWPPFEm4yAqXKQLbjwMoAeckHuaakAvOZgqSrHXPREQn3sD1pviYNOx6h_ReU2y-3BqwqErbkXcIR0EeKLd2ABc6zDxP9tGsZImixSecnyAwPs"
+        let d = (await axios({
+            method: "POST",
+            headers: {
+                Authorization: token,
+                "Content-Type": "application/json"
+            },
+            data: {
+                "servers": Guilds.length,
+                "shards": 1
+            },
+            url: "https://koreanbots.dev/api/v2/bots/957258155195236402/stats"
+        })).data
+        console.log(d.message+"\n서버 수 : "+Guilds.length)
+    },1000*90)
     
     
 })
