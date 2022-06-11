@@ -183,7 +183,7 @@ async function Int_statics(int = require(Interaction)) {
                     )
                     .setThumbnail("https://globalvx.dn.nexoncdn.co.kr/Web/barracks/logo_symbol.png")
                     .setColor("#d94e2f")
-                int.editReply({embeds: IEmbed,components: [ row ]})
+                int.editReply({embeds: [IEmbed],components: [ row ]})
                 break
             case "funding":
                 c.deferUpdate()
@@ -200,7 +200,7 @@ async function Int_statics(int = require(Interaction)) {
                     )
                     .setThumbnail("https://globalvx.dn.nexoncdn.co.kr/Web/barracks/logo_symbol.png")
                     .setColor("#d94e2f")
-                int.editReply({embeds: FEmbed,components: [ row ]})
+                int.editReply({embeds: [FEmbed],components: [ row ]})
                 break
             case "perk":
                 c.deferUpdate()
