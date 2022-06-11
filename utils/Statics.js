@@ -51,10 +51,6 @@ async function Int_statics(int = require(Interaction)) {
                     {
                         label: "렙톤 선호도",
                         value: "perk"
-                    },
-                    {
-                        label: "랭킹",
-                        value: "ranking"
                     }
                 ])
         )
