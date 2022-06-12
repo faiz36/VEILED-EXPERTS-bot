@@ -60,7 +60,7 @@ async function IntStat(int = require(Interaction), nick) {
         if (collecter.customId === 'pds') {
             await collecter.deferUpdate()
             let stats = await get_stats(collecter.values[0])
-            let s_stats = await get_seasonRecord(202202, collecter.values[0])
+            let s_stats = await get_seasonRecord(202206, collecter.values[0])
             let kill = s_stats.data.kill.replaceAll(',', '')
             let headshot = s_stats.data.headshot.replaceAll(',', '')
             let embed = new MessageEmbed()
@@ -70,7 +70,7 @@ async function IntStat(int = require(Interaction), nick) {
                 .setURL("https://globalstats.vx.nexon.com/" + collecter.values[0])
                 .setColor("#d94e2f")
                 .addFields(
-                    {name: "랭킹", value: stats.data.ranking},
+                    {name: "랭킹", value: stats.data.ranking === "UNRANK" ? stats.data.ranking : stats.data.ranking+"위"},
                     {name: "승률", value: `${stats.data.seasonRecord.win_rate}%`},
                     {name: "K/D", value: `${stats.data.seasonRecord.kd}`},
                     {name: "대미지율", value: `${stats.data.seasonRecord.damage_rate}`},
