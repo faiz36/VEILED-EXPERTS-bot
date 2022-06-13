@@ -41,6 +41,9 @@ async function IntStat(int = require(Interaction), nick) {
             );
         try {
             await int.editReply({content: "원하는 유저명을 선택해주세요!", components: [row] })
+            setTimeout(()=>{
+                int.editReply({components: []})
+            },1000*100)
         } catch (e) {
             await int.editReply("에러가 발생했습니다!\n에러 목록 : " + e + "\n**대부분 없는 닉네임 이라 그렇습니다**")
         }
