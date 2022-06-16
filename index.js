@@ -5,6 +5,7 @@ const {IntStat} = require("./utils/stat");
 const {Int_statics} = require("./utils/Statics");
 const axios = require("axios");
 let count = 0;
+const {data} = require('./utils/modules.js')
 
 client.once('ready', () => {
     console.log('준비됨!')

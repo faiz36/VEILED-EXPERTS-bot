@@ -1,5 +1,5 @@
 const {Interaction, MessageEmbed, MessageActionRow, MessageSelectMenu} = require("discord.js");
-const {get_id, get_stats, get_seasonRecord} = require("./VEILED_EXPERTS-API");
+const {get_id, get_stats, get_seasonRecord, get_recentRecord} = require("./VEILED_EXPERTS-API");
 
 async function IntStat(int = require(Interaction), nick) {
     await int.deferReply()
@@ -9,6 +9,7 @@ async function IntStat(int = require(Interaction), nick) {
     if (id.length === 1) {
         let stats = await get_stats(id[0]["usn"])
         let s_stats = await get_seasonRecord(202206, id[0]["usn"])
+        let r_stats = await get_recentRecord(id[0]["usn"])
         let kill = s_stats.data.kill.replaceAll(',', '')
         let headshot = s_stats.data.headshot.replaceAll(',', '')
         let embed = new MessageEmbed()
@@ -23,6 +24,7 @@ async function IntStat(int = require(Interaction), nick) {
                 {name: "K/D", value: `${stats.data.seasonRecord.kd}`},
                 {name: "대미지율", value: `${stats.data.seasonRecord.damage_rate}`},
                 {name: "헤드샷율(킬당)", value: String((headshot / kill * 100).toPrecision(3)) + "%"},
+                {name: "라운드 평균 가해(40매치 기준)",value:`${r_stats.recentInfo.round_damage_enemy}`}
             )
         await int.editReply({embeds: [embed]})
     } else {
@@ -61,6 +63,9 @@ async function IntStat(int = require(Interaction), nick) {
     collector.on('collect',async collecter => {
         if (!collecter.isSelectMenu()) return
         if (collecter.customId === 'pds') {
+            const {data} = require('./modules.js')
+            let test = await data.record(collecter.values[0])
+            console.log(test)
             await collecter.deferUpdate()
             let stats = await get_stats(collecter.values[0])
             let s_stats = await get_seasonRecord(202206, collecter.values[0])
