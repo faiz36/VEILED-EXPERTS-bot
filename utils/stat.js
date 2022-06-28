@@ -13,7 +13,7 @@ async function IntStat(int = require(Interaction), nick) {
         let i = d.info
         let ra = d.ranking
         let embed = new MessageEmbed()
-            .setAuthor({name: i.blockFlag === 1 ? i.nickName + "(자격박탈)" : i.nickName})
+            .setAuthor({name: i.blockFlag === 1 ? i.nickName + "(게임제재)" : i.nickName})
             .setThumbnail(i.img)
             .setTitle(`${i.nickName}님의 프로필`)
             .setURL("https://globalstats.vx.nexon.com/" + id[0]["usn"])
@@ -70,7 +70,7 @@ async function IntStat(int = require(Interaction), nick) {
             let i = d.info
             let ra = d.ranking
             let embed = new MessageEmbed()
-                .setAuthor({name: i.blockFlag === 1 ? i.nickName + "(자격박탈)" : i.nickName})
+                .setAuthor({name: i.blockFlag === 1 ? i.nickName + "(게임제재)" : i.nickName})
                 .setThumbnail(i.img)
                 .setTitle(`${i.nickName}님의 프로필`)
                 .setURL("https://globalstats.vx.nexon.com/" + id[0]["usn"])
