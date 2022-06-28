@@ -1,25 +1,30 @@
-const {get_stats, get_seasonRecord} = require("./VEILED_EXPERTS-API");
+const {get_stats, get_seasonRecord,get_recentRecord} = require("./VEILED_EXPERTS-API");
 
 const data = {
-    record: async (nickname) => {
-        let stats = await get_stats(nickname)
-        let s_stats = await get_seasonRecord(202206, nickname)
+    record: async (usn,season) => {
+        let stats = await get_stats(usn)
+        let s_stats = await get_seasonRecord(season, usn)
+        let r_stats = await get_recentRecord(usn)
         let kill = s_stats.data.kill.replaceAll(',', '')
         let headshot = s_stats.data.headshot.replaceAll(',', '')
 
-        let value = {
-            lanking: {
-                info: stats.data.ranking === "UNRANK" ? stats.data.ranking : stats.data.ranking+"위",
+        return {
+            ranking: {
+                info: stats.data.ranking === "UNRANK" ? stats.data.ranking : stats.data.ranking + "위",
             },
             record: {
                 winrate: `${stats.data.seasonRecord.win_rate}%`,
                 kd: `${stats.data.seasonRecord.kd}`,
-                damgerate: `${stats.data.seasonRecord.damage_rate}`,
-                headrate: String((headshot / kill * 100).toPrecision(3)) + "%"
+                dmgrate: `${stats.data.seasonRecord.damage_rate}`,
+                headrate: String((headshot / kill * 100).toPrecision(3)) + "%",
+                avg_atk: r_stats.data.recentInfo.round_damage_enemy
+            },
+            info: {
+                blockFlag: stats.data.userInfo.block_flag,
+                nickName: stats.data.userInfo.nickname,
+                img: stats.data.profile_image
             }
         }
-
-        return value
     },
 }
 
