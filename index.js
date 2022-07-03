@@ -3,6 +3,7 @@ const client = new Client({ intents: ["GUILDS", "GUILD_MESSAGES", "DIRECT_MESSAG
 const { token } = require('./config.json')
 const {IntStat} = require("./utils/stat");
 const {Int_statics} = require("./utils/Statics");
+const {Int_Ranking} = require("./utils/Ranking");
 let count = 0;
 const { KoreanbotsClient } = require('koreanbots')
 const kclient = new KoreanbotsClient({
@@ -61,6 +62,16 @@ client.on('guildDelete',guild=>{
 })
 
 client.on('interactionCreate', async int => {
+    if(!int.isContextMenu()) return
+    if (int.commandName === "통계"){
+        Int_statics(int)
+    }
+    if(int.commandName === "랭킹"){
+        Int_Ranking(int)
+    }
+})
+
+client.on('interactionCreate', async int => {
     if (!int.isCommand()) return;
 
     if (int.commandName === "전적"){
@@ -70,6 +81,9 @@ client.on('interactionCreate', async int => {
 }
     else if (int.commandName === "통계"){
         await Int_statics(int)
+    }
+    else if (int.commandName === "랭킹"){
+        await Int_Ranking(int)
     }
 })
 

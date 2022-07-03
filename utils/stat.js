@@ -1,5 +1,5 @@
 const {Interaction, MessageEmbed, MessageActionRow, MessageSelectMenu} = require("discord.js");
-const {get_id, get_stats, get_seasonRecord, get_recentRecord} = require("./VEILED_EXPERTS-API");
+const {get_id} = require("./VEILED_EXPERTS-API");
 const { data } = require("./modules")
 
 async function IntStat(int = require(Interaction), nick) {
@@ -34,6 +34,7 @@ async function IntStat(int = require(Interaction), nick) {
             sdata[i]["label"] = id[i]["nickname"]
             sdata[i]["value"] = id[i]["usn"]
         }
+            int.channel.createMessageComponentCollector()
         const row = new MessageActionRow()
             .addComponents(
                 new MessageSelectMenu()
