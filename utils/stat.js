@@ -26,7 +26,17 @@ async function IntStat(int = require(Interaction), nick) {
                 {name: "헤드샷율(킬당)", value: r.headrate},
                 {name: "라운드 평균 가해(40매치 기준)",value:`${r.avg_atk}`}
             )
-        await int.editReply({embeds: [embed]})
+        try {
+            await int.editReply({embeds: [embed]})
+        }catch (e) {
+            await data.EError(int.commandName+" "+int.options.getString("유저명"), int.channel.type === "DM" ? "DM" : int.guild.name,e)
+            let ue = new MessageEmbed()
+                .setTitle("⛔ 에러")
+                .setDescription("에러가 발생했습니다 다시시도해주세요!")
+                .setColor("#d94e2f")
+                .setThumbnail("https://globalvx.dn.nexoncdn.co.kr/Web/barracks/logo_symbol.png")
+            await int.editReply({embeds: [ue]})
+        }
     } else {
         for (let i = 0; i < id.length; i++) {
             sdata[i] = {}
@@ -48,7 +58,17 @@ async function IntStat(int = require(Interaction), nick) {
                 int.editReply({components: []})
             },1000*100)
         } catch (e) {
-            await int.editReply("에러가 발생했습니다!\n에러 목록 : " + e + "\n**대부분 없는 닉네임 이라 그렇습니다**")
+            await data.EError(int.commandName+" "+int.options.getString("유저명"), int.channel.type === "DM" ? "DM" : int.guild.name,e)
+            if(e.toString().includes("components[0].components[0].options: This field is required")){
+                await int.editReply("존제하지 않는 닉네임입니다! 다시 시도해주세요!")
+            }else{
+                let ue = new MessageEmbed()
+                    .setTitle("⛔ 에러")
+                    .setDescription("에러가 발생했습니다 다시시도해주세요!")
+                    .setColor("#d94e2f")
+                    .setThumbnail("https://globalvx.dn.nexoncdn.co.kr/Web/barracks/logo_symbol.png")
+                await int.editReply({embeds: [ue]})
+            }
         }
     }
 
@@ -84,7 +104,17 @@ async function IntStat(int = require(Interaction), nick) {
                     {name: "헤드샷율(킬당)", value: r.headrate},
                     {name: "라운드 평균 가해(40매치 기준)",value:`${r.avg_atk}`}
                 )
-            await int.editReply({embeds: [embed]})
+            try {
+                await int.editReply({embeds: [embed]})
+            }catch (e) {
+                await data.EError(int.commandName+" "+int.options.getString("유저명"), int.channel.type === "DM" ? "DM" : int.guild.name,e)
+                let ue = new MessageEmbed()
+                    .setTitle("⛔ 에러")
+                    .setDescription("에러가 발생했습니다 다시시도해주세요!")
+                    .setColor("#d94e2f")
+                    .setThumbnail("https://globalvx.dn.nexoncdn.co.kr/Web/barracks/logo_symbol.png")
+                await int.editReply({embeds: [ue]})
+            }
         }
     })
 
