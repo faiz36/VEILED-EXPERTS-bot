@@ -71,17 +71,7 @@ async function Int_Ranking(int = require(Interaction)) {
                 .setStyle("DANGER")
                 .setCustomId("RNEXT")
         )
-    try{
-        await int.editReply({embeds: [REmbed],components: [frow]})
-    }catch (e) {
-        await data.EError(int.commandName+"(평균탭)", int.channel.type === "DM" ? "DM" : int.guild.name,e)
-        let ue = new MessageEmbed()
-            .setTitle("⛔ 에러")
-            .setDescription("에러가 발생했습니다 다시시도해주세요!")
-            .setColor("#d94e2f")
-            .setThumbnail("https://globalvx.dn.nexoncdn.co.kr/Web/barracks/logo_symbol.png")
-        await int.editReply({embeds: [ue]})
-    }
+    await int.editReply({embeds: [REmbed],components: [frow]})
     setTimeout(async ()=> {
         await int.editReply({components:[]})
     },1000*200)
@@ -91,108 +81,64 @@ async function Int_Ranking(int = require(Interaction)) {
     let collector = int.channel.createMessageComponentCollector({filter,time: 1000*200})
 
     collector.on('collect', async c => {
-        if (!c.isButton()) return
-        if (c.customId === "RBACK") {
-            if (count === 1) count = 7
-            else count -= 1
-            c.deferUpdate()
-        }
-        if (c.customId === "RNEXT") {
-            if (count === 7) count = 1
-            else count += 1
-            c.deferUpdate()
-        }
-        let CEmbed
-        switch (count) {
-            case 1:
-                CEmbed = new MessageEmbed()
-                    .setTitle("1. " + f(l[count].title))
-                    .setColor("#d94e2f")
-                    .setThumbnail("https://globalvx.dn.nexoncdn.co.kr/Web/barracks/logo_symbol.png")
-                    .addFields({name: `1. ${l[count].list[0].nickname}`, value: `${l[count].list[0].exp}`},
-                        {name: `2. ${l[count].list[1].nickname}`, value: `${l[count].list[1].exp}`},
-                        {name: `3. ${l[count].list[2].nickname}`, value: `${l[count].list[2].exp}`},
-                        {name: `4. ${l[count].list[3].nickname}`, value: `${l[count].list[3].exp}`},
-                        {name: `5. ${l[count].list[4].nickname}`, value: `${l[count].list[4].exp}`})
-                    .setFooter({text: `자그마치 ${time.toFixed(1)}초를 기다리셨습니다!`})
-                break
-            case 2:
-                CEmbed = new MessageEmbed()
-                    .setTitle("2. " + f(l[count].title))
-                    .setColor("#d94e2f")
-                    .setThumbnail("https://globalvx.dn.nexoncdn.co.kr/Web/barracks/logo_symbol.png")
-                    .addFields({name: `1. ${l[count].list[0].nickname}`, value: `${l[count].list[0].kd}`},
-                        {name: `2. ${l[count].list[1].nickname}`, value: `${l[count].list[1].kd}`},
-                        {name: `3. ${l[count].list[2].nickname}`, value: `${l[count].list[2].kd}`},
-                        {name: `4. ${l[count].list[3].nickname}`, value: `${l[count].list[3].kd}`},
-                        {name: `5. ${l[count].list[4].nickname}`, value: `${l[count].list[4].kd}`})
-                    .setFooter({text: `자그마치 ${time.toFixed(1)}초를 기다리셨습니다!`})
-                break
-            case 3:
-                CEmbed = new MessageEmbed()
-                    .setTitle("3. " + f(l[count].title))
-                    .setColor("#d94e2f")
-                    .setThumbnail("https://globalvx.dn.nexoncdn.co.kr/Web/barracks/logo_symbol.png")
-                    .addFields({name: `1. ${l[count].list[0].nickname}`, value: `${l[count].list[0].revive}`},
-                        {name: `2. ${l[count].list[1].nickname}`, value: `${l[count].list[1].revive}`},
-                        {name: `3. ${l[count].list[2].nickname}`, value: `${l[count].list[2].revive}`},
-                        {name: `4. ${l[count].list[3].nickname}`, value: `${l[count].list[3].revive}`},
-                        {name: `5. ${l[count].list[4].nickname}`, value: `${l[count].list[4].revive}`})
-                    .setFooter({text: `자그마치 ${time.toFixed(1)}초를 기다리셨습니다!`})
-                break
-            case 4:
-                CEmbed = new MessageEmbed()
-                    .setTitle("4. " + f(l[count].title))
-                    .setColor("#d94e2f")
-                    .setThumbnail("https://globalvx.dn.nexoncdn.co.kr/Web/barracks/logo_symbol.png")
-                    .addFields({name: `1. ${l[count].list[0].nickname}`, value: `${l[count].list[0].juggernaut}`},
-                        {name: `2. ${l[count].list[1].nickname}`, value: `${l[count].list[1].juggernaut}`},
-                        {name: `3. ${l[count].list[2].nickname}`, value: `${l[count].list[2].juggernaut}`},
-                        {name: `4. ${l[count].list[3].nickname}`, value: `${l[count].list[3].juggernaut}`},
-                        {name: `5. ${l[count].list[4].nickname}`, value: `${l[count].list[4].juggernaut}`})
-                    .setFooter({text: `자그마치 ${time.toFixed(1)}초를 기다리셨습니다!`})
-                break
-            case 5:
-                CEmbed = new MessageEmbed()
-                    .setTitle("5. " + f(l[count].title))
-                    .setColor("#d94e2f")
-                    .setThumbnail("https://globalvx.dn.nexoncdn.co.kr/Web/barracks/logo_symbol.png")
-                    .addFields({name: `1. ${l[count].list[0].nickname}`, value: `${l[count].list[0].funding}`},
-                        {name: `2. ${l[count].list[1].nickname}`, value: `${l[count].list[1].funding}`},
-                        {name: `3. ${l[count].list[2].nickname}`, value: `${l[count].list[2].funding}`},
-                        {name: `4. ${l[count].list[3].nickname}`, value: `${l[count].list[3].funding}`},
-                        {name: `5. ${l[count].list[4].nickname}`, value: `${l[count].list[4].funding}`})
-                    .setFooter({text: `자그마치 ${time.toFixed(1)}초를 기다리셨습니다!`})
-                break
-            case 6:
-                CEmbed = new MessageEmbed()
-                    .setTitle("6. " + f(l[count].title))
-                    .setColor("#d94e2f")
-                    .setThumbnail("https://globalvx.dn.nexoncdn.co.kr/Web/barracks/logo_symbol.png")
-                    .addFields({name: `1. ${l[count].list[0].nickname}`, value: `${l[count].list[0].damage}`},
-                        {name: `2. ${l[count].list[1].nickname}`, value: `${l[count].list[1].damage}`},
-                        {name: `3. ${l[count].list[2].nickname}`, value: `${l[count].list[2].damage}`},
-                        {name: `4. ${l[count].list[3].nickname}`, value: `${l[count].list[3].damage}`},
-                        {name: `5. ${l[count].list[4].nickname}`, value: `${l[count].list[4].damage}`})
-                    .setFooter({text: `자그마치 ${time.toFixed(1)}초를 기다리셨습니다!`})
-                break
-            case 7:
-                CEmbed = new MessageEmbed()
-                    .setTitle("7. " + f(l[count].title))
-                    .setColor("#d94e2f")
-                    .setThumbnail("https://globalvx.dn.nexoncdn.co.kr/Web/barracks/logo_symbol.png")
-                    .addFields({name: `1. ${l[count].list[0].nickname}`, value: `${l[count].list[0].coin}`},
-                        {name: `2. ${l[count].list[1].nickname}`, value: `${l[count].list[1].coin}`},
-                        {name: `3. ${l[count].list[2].nickname}`, value: `${l[count].list[2].coin}`},
-                        {name: `4. ${l[count].list[3].nickname}`, value: `${l[count].list[3].coin}`},
-                        {name: `5. ${l[count].list[4].nickname}`, value: `${l[count].list[4].coin}`})
-                    .setFooter({text: `자그마치 ${time.toFixed(1)}초를 기다리셨습니다!`})
-                break
-        }
         try {
-            int.editReply({embeds: [CEmbed]})
+            if (!c.isButton()) return
+            if (c.customId === "RBACK") {
+                if (count === 1) count = 7
+                else count -= 1
+                c.deferUpdate()
+            }
+            if (c.customId === "RNEXT") {
+                if (count === 7) count = 1
+                else count += 1
+                c.deferUpdate()
+            }
+            let CEmbed
+            let listN
+            let N
+            switch (count) {
+                case 1:
+                    listN = "exp"
+                    N = "1"
+                    break
+                case 2:
+                    listN = "kd"
+                    N = "2"
+                    break
+                case 3:
+                    listN = "revive"
+                    N = "3"
+                    break
+                case 4:
+                    listN = "juggernaut"
+                    N = "4"
+                    break
+                case 5:
+                    listN = "funding"
+                    N = "5"
+                    break
+                case 6:
+                    listN = "damage"
+                    N = "6"
+                    break
+                case 7:
+                    listN = "coin"
+                    N = "7"
+                    break
+            }
+            CEmbed = new MessageEmbed()
+                .setTitle(`${N}.` + f(l[count].title))
+                .setColor("#d94e2f")
+                .setThumbnail("https://globalvx.dn.nexoncdn.co.kr/Web/barracks/logo_symbol.png")
+                .addFields({name: `1. ${l[count].list[0].nickname}`, value: `${l[count].list[0][listN]}`},
+                    {name: `2. ${l[count].list[1].nickname}`, value: `${l[count].list[1][listN]}`},
+                    {name: `3. ${l[count].list[2].nickname}`, value: `${l[count].list[2][listN]}`},
+                    {name: `4. ${l[count].list[3].nickname}`, value: `${l[count].list[3][listN]}`},
+                    {name: `5. ${l[count].list[4].nickname}`, value: `${l[count].list[4][listN]}`})
+                .setFooter({text: `자그마치 ${time.toFixed(1)}초를 기다리셨습니다!`})
+            await int.editReply({embeds: [CEmbed]})
         } catch (e) {
-            await data.EError(int.commandName + "(평균탭)", int.channel.type === "DM" ? "DM" : int.guild.name, e)
+            await data.EError(int,int.commandName, int.channel.type === "DM" ? "DM" : int.guild.name,e)
             let ue = new MessageEmbed()
                 .setTitle("⛔ 에러")
                 .setDescription("에러가 발생했습니다 다시시도해주세요!")
