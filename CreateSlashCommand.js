@@ -18,12 +18,18 @@ const rest = new REST({version: '9'}).setToken(token);
                     data = new SlashCommandBuilder()
                         .setName("랭킹")
                         .setDescription("VX 유저의 랭킹을 확인합니다."),
+                    data = new SlashCommandBuilder()
+                        .setName("요원")
+                        .setDescription("VX의 요원을 확인하세요"),
                     data = new ContextMenuCommandBuilder()
                         .setName("통계")
                         .setType(ApplicationCommandType.Message),
                     data = new ContextMenuCommandBuilder()
                         .setName("랭킹")
-                        .setType(ApplicationCommandType.Message)
+                        .setType(ApplicationCommandType.Message),
+                    data = new ContextMenuCommandBuilder()
+                        .setName("요원")
+                        .setType(ApplicationCommandType.Message),
                 ]
             }
         )

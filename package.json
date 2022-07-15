@@ -17,6 +17,7 @@
     "discord.js": "^13.6.0",
     "koreanbots": "^3.2.1",
     "nodemon": "^2.0.16",
-    "package.json": "^2.0.1"
+    "package.json": "^2.0.1",
+    "pkg.json": "^2.0.8"
   }
 }

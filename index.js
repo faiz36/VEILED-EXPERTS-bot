@@ -4,7 +4,20 @@ const { token } = require('./config.json')
 const {IntStat} = require("./utils/stat");
 const {Int_statics} = require("./utils/Statics");
 const {Int_Ranking} = require("./utils/Ranking");
+const { KoreanbotsClient } = require("koreanbots")
+const KClient = new KoreanbotsClient({
+    intents: ["GUILDS", "GUILD_MESSAGES", "GUILD_MEMBERS"],
+    koreanbots: {
+        api: {
+            token: "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk1NzI1ODE1NTE5NTIzNjQwMiIsImlhdCI6MTY1NDI1NTcwMX0.dDUgpVtow4It27D64BgE8i6aCWlrfPxf7P_WwtUVuwPE1_etFeVGcNmyVKMi7xWPPFEm4yAqXKQLbjwMoAeckHuaakAvOZgqSrHXPREQn3sD1pviYNOx6h_ReU2y-3BqwqErbkXcIR0EeKLd2ABc6zDxP9tGsZImixSecnyAwPs"
+        }
+    },
+    koreanbotsClient: {
+        updateInterval: 600000
+    }
+})
 const axios = require("axios");
+const {Int_Agent} = require("./utils/Agent");
 let count = 0;
 client.once('ready', () => {
     console.log('준비됨!')
@@ -21,21 +34,7 @@ client.once('ready', () => {
         }
     },30000)
 
-    setInterval(async () => {
-        const Guilds = client.guilds.cache.map(guild => guild.id);
-        await axios({
-            url: "https://koreanbots.dev/api/v2/bots/957258155195236402/stats",
-            method: "POST",
-            headers: {
-                Authorization: "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk1NzI1ODE1NTE5NTIzNjQwMiIsImlhdCI6MTY1NDI1NTcwMX0.dDUgpVtow4It27D64BgE8i6aCWlrfPxf7P_WwtUVuwPE1_etFeVGcNmyVKMi7xWPPFEm4yAqXKQLbjwMoAeckHuaakAvOZgqSrHXPREQn3sD1pviYNOx6h_ReU2y-3BqwqErbkXcIR0EeKLd2ABc6zDxP9tGsZImixSecnyAwPs",
-                "Content-Type": "application/json"
-            },
-            data: {
-                "servers": Guilds.length
-            }
-        })
-        console.log(`서버 수는 ${Guilds.length}개 입니다!`)
-    },1000*60*1.5)
+
     
 })
 
@@ -71,6 +70,9 @@ client.on('interactionCreate', async int => {
     if(int.commandName === "랭킹"){
         Int_Ranking(int)
     }
+    if(int.commandName === "요원"){
+        Int_Agent(int)
+    }
 })
 
 client.on('interactionCreate', async int => {
@@ -91,3 +93,8 @@ client.on('interactionCreate', async int => {
 
 
 client.login(token);
+
+process.on("SIGINT", () => {
+    KClient.destroy()
+    process.exit()
+})
