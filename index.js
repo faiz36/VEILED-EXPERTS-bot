@@ -65,13 +65,13 @@ client.on('guildDelete',guild=>{
 client.on('interactionCreate', async int => {
     if(!int.isContextMenu()) return
     if (int.commandName === "통계"){
-        Int_statics(int)
+        await Int_statics(int)
     }
     if(int.commandName === "랭킹"){
-        Int_Ranking(int)
+        await Int_Ranking(int)
     }
     if(int.commandName === "요원"){
-        Int_Agent(int)
+        await Int_Agent(int)
     }
 })
 
@@ -88,6 +88,8 @@ client.on('interactionCreate', async int => {
     }
     else if (int.commandName === "랭킹"){
         await Int_Ranking(int)
+    }else if (int.commandName === "요원"){
+        await Int_Agent(int)
     }
 })
 
