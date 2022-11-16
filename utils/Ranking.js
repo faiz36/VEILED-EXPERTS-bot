@@ -1,11 +1,11 @@
-const {Interaction, MessageEmbed, MessageActionRow, MessageButton} = require("discord.js");
+const {EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle} = require("discord.js");
 const { get_statics } = require("./VEILED_EXPERTS-API");
 const { f, data} =require('./modules')
 const axios = require("axios");
 
-async function Int_Ranking(int = require(Interaction)) {
+async function Int_Ranking(int /* Interaction */) {
     let count = 1
-    let FEmbed = new MessageEmbed()
+    let FEmbed = new EmbedBuilder()
         .setTitle("랭킹을 불러오는중...")
         .setDescription("시간이 많이 걸릴수도 있습니다. 기다려주세요!")
         .setColor("#d94e2f")
@@ -48,7 +48,7 @@ async function Int_Ranking(int = require(Interaction)) {
         }
     }
     clearInterval(s)
-    let REmbed = new MessageEmbed()
+    let REmbed = new EmbedBuilder()
         .setTitle("1. "+f(l[1].title))
         .setColor("#d94e2f")
         .setThumbnail("https://globalvx.dn.nexoncdn.co.kr/Web/barracks/logo_symbol.png")
@@ -58,17 +58,17 @@ async function Int_Ranking(int = require(Interaction)) {
             {name: `4. ${l[count].list[3].nickname}`,value:`${l[count].list[3].exp}`},
             {name: `5. ${l[count].list[4].nickname}`,value:`${l[count].list[4].exp}`})
         .setFooter({text: `자그마치 ${time.toFixed(1)}초를 기다리셨습니다!`})
-    let frow = new MessageActionRow()
+    let frow = new ActionRowBuilder()
         .addComponents(
-            new MessageButton()
+            new ButtonBuilder()
                 .setEmoji("942384949762342972")
-                .setStyle("DANGER")
+                .setStyle(ButtonStyle.Danger)
                 .setCustomId("RBACK")
         )
         .addComponents(
-            new MessageButton()
+            new ButtonBuilder()
                 .setEmoji("933926552800989226")
-                .setStyle("DANGER")
+                .setStyle(ButtonStyle.Danger)
                 .setCustomId("RNEXT")
         )
     await int.editReply({embeds: [REmbed],components: [frow]})
@@ -126,7 +126,7 @@ async function Int_Ranking(int = require(Interaction)) {
                     N = "7"
                     break
             }
-            CEmbed = new MessageEmbed()
+            CEmbed = new EmbedBuilder()
                 .setTitle(`${N}.` + f(l[count].title))
                 .setColor("#d94e2f")
                 .setThumbnail("https://globalvx.dn.nexoncdn.co.kr/Web/barracks/logo_symbol.png")
@@ -139,7 +139,7 @@ async function Int_Ranking(int = require(Interaction)) {
             await int.editReply({embeds: [CEmbed]})
         } catch (e) {
             await data.EError(int,int.commandName, int.channel.type === "DM" ? "DM" : int.guild.name,e)
-            let ue = new MessageEmbed()
+            let ue = new EmbedBuilder()
                 .setTitle("⛔ 에러")
                 .setDescription("에러가 발생했습니다 다시시도해주세요!")
                 .setColor("#d94e2f")

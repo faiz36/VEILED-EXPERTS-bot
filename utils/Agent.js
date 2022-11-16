@@ -1,26 +1,26 @@
-const {Interaction, MessageActionRow, MessageSelectMenu, MessageButton} = require("discord.js");
+const { ActionRowBuilder, SelectMenuBuilder, ButtonBuilder,ButtonStyle} = require("discord.js");
 const { jack } = require("../utils/agent/Jack")
 
-async function Int_Agent(int = require(Interaction)) {
+async function Int_Agent(int) {
     let current = "jack"
     await int.deferReply()
     let FE = jack.one()
-    let lrow = new MessageActionRow()
+    let lrow = new ActionRowBuilder()
         .addComponents(
-            new MessageButton()
+            new ButtonBuilder()
                 .setEmoji("942384949762342972")
                 .setCustomId("VX_AgentBack")
-                .setStyle("DANGER")
+                .setStyle(ButtonStyle.Danger)
         )
         .addComponents(
-            new MessageButton()
+            new ButtonBuilder()
                 .setEmoji("933926552800989226")
                 .setCustomId("VX_AgentNext")
-                .setStyle("DANGER")
+                .setStyle(ButtonStyle.Danger)
         )
-    let row = new MessageActionRow()
+    let row = new ActionRowBuilder()
         .addComponents(
-            new MessageSelectMenu()
+            new SelectMenuBuilder()
                 .setCustomId("VX_AgentInfo")
                 .setPlaceholder("요원의 원하는 정보를 선택해주세요!")
                 .addOptions([

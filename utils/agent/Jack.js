@@ -1,7 +1,7 @@
-const {MessageEmbed} = require("discord.js");
+const {EmbedBuilder} = require("discord.js");
 jack = {
     one: () => {
-        return new MessageEmbed()
+        return new EmbedBuilder()
             .setTitle("잭(JACK KANE)")
             .setDescription("흔적을 남기지 않는 특급 요원 <잭>")
             .addFields(

@@ -1,12 +1,12 @@
-const { Client,MessageEmbed } = require('discord.js')
-const client = new Client({ intents: ["GUILDS", "GUILD_MESSAGES", "DIRECT_MESSAGES"], partials: ["CHANNEL"] })
+const { Client,EmbedBuilder, Partials,GatewayIntentBits} = require('discord.js')
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.DirectMessages], partials: [Partials.Channel] })
 const { token } = require('./config.json')
 const {IntStat} = require("./utils/stat");
 const {Int_statics} = require("./utils/Statics");
 const {Int_Ranking} = require("./utils/Ranking");
 const { KoreanbotsClient } = require("koreanbots")
 const KClient = new KoreanbotsClient({
-    intents: ["GUILDS", "GUILD_MESSAGES", "GUILD_MEMBERS"],
+    intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMembers],
     koreanbots: {
         api: {
             token: "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijk1NzI1ODE1NTE5NTIzNjQwMiIsImlhdCI6MTY1NDI1NTcwMX0.dDUgpVtow4It27D64BgE8i6aCWlrfPxf7P_WwtUVuwPE1_etFeVGcNmyVKMi7xWPPFEm4yAqXKQLbjwMoAeckHuaakAvOZgqSrHXPREQn3sD1pviYNOx6h_ReU2y-3BqwqErbkXcIR0EeKLd2ABc6zDxP9tGsZImixSecnyAwPs"
@@ -16,7 +16,6 @@ const KClient = new KoreanbotsClient({
         updateInterval: 600000
     }
 })
-const axios = require("axios");
 const {Int_Agent} = require("./utils/Agent");
 let count = 0;
 client.once('ready', () => {
@@ -41,7 +40,7 @@ client.once('ready', () => {
 client.on('guildCreate',guild=>{
     const Guilds = client.guilds.cache.map(guild => guild.id);
     name = guild.name
-    embed = new MessageEmbed()
+    embed = new EmbedBuilder()
         .setTitle("**서버 가입(JOINED)**")
         .setColor("#d94e2f")
         .addField("**서버**",name)
@@ -53,17 +52,17 @@ client.on('guildCreate',guild=>{
 client.on('guildDelete',guild=>{
     const Guilds = client.guilds.cache.map(guild => guild.id);
     name = guild.name
-    embed = new MessageEmbed()
+    embed = new EmbedBuilder()
         .setTitle("**서버 탈퇴(REMOVED)**")
         .setColor("#d94e2f")
-        .addField("**서버**",name,false)
-        .addField("**서버수**",Guilds.length+"개",false)
+        .addFields([{name: "**서버**",value: name,inline: false},
+            {name: "**서버수**",value: Guilds.length+"개",inline: false}])
     client.channels.cache.get("982252782373449728").send({embeds: [embed]})
 
 })
 
 client.on('interactionCreate', async int => {
-    if(!int.isContextMenu()) return
+    if(!int.isContextMenuCommand()) return
     if (int.commandName === "통계"){
         await Int_statics(int)
     }

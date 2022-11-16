@@ -1,5 +1,5 @@
 const {get_stats, get_seasonRecord,get_recentRecord} = require("./VEILED_EXPERTS-API");
-const {MessageEmbed, Client, Interaction} = require("discord.js");
+const {EmbedBuilder, Interaction} = require("discord.js");
 const data = {
     record: async (usn,season) => {
         let stats = await get_stats(usn)
@@ -27,7 +27,7 @@ const data = {
         }
     },
     EError: async (int = require(Interaction),cmd,server,error) => {
-            let e = new MessageEmbed()
+            let e = new EmbedBuilder()
                 .setTitle("⛔에러")
                 .setColor("#d94e2f")
                 .addFields({name: "사용된 명령어",value: "`"+cmd+"`"},

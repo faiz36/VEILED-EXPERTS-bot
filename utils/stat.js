@@ -1,4 +1,4 @@
-const {Interaction, MessageEmbed, MessageActionRow, MessageSelectMenu} = require("discord.js");
+const {Interaction, EmbedBuilder, ActionRowBuilder, SelectMenuBuilder} = require("discord.js");
 const {get_id} = require("./VEILED_EXPERTS-API");
 const { data } = require("./modules")
 
@@ -13,7 +13,7 @@ async function IntStat(int = require(Interaction), nick) {
             let r = d.record
             let i = d.info
             let ra = d.ranking
-            let embed = new MessageEmbed()
+            let embed = new EmbedBuilder()
                 .setAuthor({name: i.blockFlag === 1 ? i.nickName + "(게임제재)" : i.nickName})
                 .setThumbnail(i.img)
                 .setTitle(`${i.nickName}님의 프로필`)
@@ -31,7 +31,7 @@ async function IntStat(int = require(Interaction), nick) {
                 await int.editReply({embeds: [embed]})
             } catch (e) {
                 await data.EError(int.commandName + " " + int.options.getString("유저명"), int.channel.type === "DM" ? "DM" : int.guild.name, e)
-                let ue = new MessageEmbed()
+                let ue = new EmbedBuilder()
                     .setTitle("⛔ 에러")
                     .setDescription("에러가 발생했습니다 다시시도해주세요!")
                     .setColor("#d94e2f")
@@ -46,9 +46,9 @@ async function IntStat(int = require(Interaction), nick) {
                 sdata[i]["value"] = id[i]["usn"]
             }
             int.channel.createMessageComponentCollector()
-            const row = new MessageActionRow()
+            const row = new ActionRowBuilder()
                 .addComponents(
-                    new MessageSelectMenu()
+                    new SelectMenuBuilder()
                         .setCustomId('pds')
                         .setPlaceholder('원하는 유저명을 선택해주세요!')
                         .addOptions(sdata)
@@ -78,7 +78,7 @@ async function IntStat(int = require(Interaction), nick) {
                 let r = d.record
                 let i = d.info
                 let ra = d.ranking
-                let embed = new MessageEmbed()
+                let embed = new EmbedBuilder()
                     .setAuthor({name: i.blockFlag === 1 ? i.nickName + "(게임제재)" : i.nickName})
                     .setThumbnail(i.img)
                     .setTitle(`${i.nickName}님의 프로필`)
@@ -100,7 +100,7 @@ async function IntStat(int = require(Interaction), nick) {
         if(e.toString().includes("components[0].components[0].options: This field is required")){
             await int.editReply("존재하지 않는 닉네임입니다! 다시 시도해주세요!")
         }else{
-            let ue = new MessageEmbed()
+            let ue = new EmbedBuilder()
                 .setTitle("⛔ 에러")
                 .setDescription("에러가 발생했습니다 다시시도해주세요!")
                 .setColor("#d94e2f")

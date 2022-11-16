@@ -1,6 +1,5 @@
-const {Interaction, MessageEmbed, MessageActionRow, MessageSelectMenu, MessageComponentInteraction, MessageButton} = require("discord.js");
+const {Interaction, EmbedBuilder, ActionRowBuilder, SelectMenuBuilder, ButtonBuilder} = require("discord.js");
 const {get_statics} = require("./VEILED_EXPERTS-API");
-const {Embed} = require("@discordjs/builders");
 const { data,f } = require('./modules')
 
 
@@ -10,7 +9,7 @@ async function Int_statics(int = require(Interaction)) {
         let wcount = 0
         let SData = await get_statics()
         SData = SData.data
-        let FEmbed = new MessageEmbed()
+        let FEmbed = new EmbedBuilder()
             .setTitle("**통계 - 평균**")
             .addFields(
                 {name: "**폭탄 해체**", value: `${SData.avg.bomb_defuse}회`},
@@ -23,9 +22,9 @@ async function Int_statics(int = require(Interaction)) {
             )
             .setThumbnail("https://globalvx.dn.nexoncdn.co.kr/Web/barracks/logo_symbol.png")
             .setColor("#d94e2f")
-        let row = new MessageActionRow()
+        let row = new ActionRowBuilder()
             .addComponents(
-                new MessageSelectMenu()
+                new SelectMenuBuilder()
                     .setCustomId("VX_Statics")
                     .addOptions([
                         {
@@ -76,10 +75,10 @@ async function Int_statics(int = require(Interaction)) {
         collector.on('collect', async c => {
             if (!c.isSelectMenu()) return
             if (!c.customId === "VX_Statics") return;
-            c.deferUpdate()
+            await c.deferUpdate()
             switch (c.values[0]) {
                 case "avg":
-                    let AEmbed = new MessageEmbed()
+                    let AEmbed = new EmbedBuilder()
                         .setTitle("**통계 - 평균**")
                         .addFields(
                             {name: "**폭탄 해체**", value: `${SData.avg.bomb_defuse}회`},
@@ -96,7 +95,7 @@ async function Int_statics(int = require(Interaction)) {
                     break
                 case "agent":
                     acount = 0
-                    let AGEmbed = new MessageEmbed()
+                    let AGEmbed = new EmbedBuilder()
                         .setTitle("**통계 - 요원(가해량 순)**")
                         .addFields(
                             {
@@ -138,24 +137,24 @@ async function Int_statics(int = require(Interaction)) {
                         )
                         .setThumbnail("https://globalvx.dn.nexoncdn.co.kr/Web/barracks/logo_symbol.png")
                         .setColor("#d94e2f")
-                    let arow = new MessageActionRow()
+                    let arow = new ActionRowBuilder()
                         .addComponents(
-                            new MessageButton()
+                            new ButtonBuilder()
                                 .setCustomId("ABack")
-                                .setStyle("DANGER")
+                                .setStyle(ButtonStyle.Danger)
                                 .setEmoji("942384949762342972")
                         )
                         .addComponents(
-                            new MessageButton()
+                            new ButtonBuilder()
                                 .setCustomId("ANext")
-                                .setStyle("DANGER")
+                                .setStyle(ButtonStyle.Danger)
                                 .setEmoji("933926552800989226")
                         )
                     await int.editReply({embeds: [AGEmbed], components: [arow, row]})
                     break
                 case "weapon":
                     wcount = 0
-                    WEmbed = new MessageEmbed()
+                    WEmbed = new EmbedBuilder()
                         .setTitle("통계 - 무기(선호도 순)")
                         .addFields(
                             {
@@ -181,23 +180,23 @@ async function Int_statics(int = require(Interaction)) {
                         )
                         .setThumbnail("https://globalvx.dn.nexoncdn.co.kr/Web/barracks/logo_symbol.png")
                         .setColor("#d94e2f")
-                    let wrow = new MessageActionRow()
+                    let wrow = new ActionRowBuilder()
                         .addComponents(
-                            new MessageButton()
+                            new ButtonBuilder()
                                 .setCustomId("WBack")
-                                .setStyle("DANGER")
+                                .setStyle(ButtonStyle.Danger)
                                 .setEmoji("942384949762342972")
                         )
                         .addComponents(
-                            new MessageButton()
+                            new ButtonBuilder()
                                 .setCustomId("WNext")
-                                .setStyle("DANGER")
+                                .setStyle(ButtonStyle.Danger)
                                 .setEmoji("933926552800989226")
                         )
                     int.editReply({embeds: [WEmbed], components: [wrow, row]})
                     break
                 case "juggernaut":
-                    let JEmbed = new MessageEmbed()
+                    let JEmbed = new EmbedBuilder()
                         .setTitle("통계 - 저거넛 사용 평균(라운드별)")
                         .addFields(
                             {name: "1라운드", value: `${SData.juggernaut[0]["juggernaut_per"]}회`, inline: true},
@@ -213,7 +212,7 @@ async function Int_statics(int = require(Interaction)) {
                     int.editReply({embeds: [JEmbed], components: [row]})
                     break
                 case "item":
-                    let IEmbed = new MessageEmbed()
+                    let IEmbed = new EmbedBuilder()
                         .setTitle("통계 - 아이템 사용 평균")
                         .addFields(
                             {
@@ -251,7 +250,7 @@ async function Int_statics(int = require(Interaction)) {
                     int.editReply({embeds: [IEmbed], components: [row]})
                     break
                 case "funding":
-                    let FEmbed = new MessageEmbed()
+                    let FEmbed = new EmbedBuilder()
                         .setTitle("통계 - 펀딩")
                         .addFields(
                             {
@@ -295,7 +294,7 @@ async function Int_statics(int = require(Interaction)) {
                     int.editReply({embeds: [FEmbed], components: [row]})
                     break
                 case "perk":
-                    let PEmbed = new MessageEmbed()
+                    let PEmbed = new EmbedBuilder()
                         .setTitle("통계 - 렙톤 선호도")
                         .addFields(
                             {name: `1. ${f(SData.perk[0]["name"])}`, value: `${SData.perk[0]["value"]}%`},
@@ -314,7 +313,7 @@ async function Int_statics(int = require(Interaction)) {
         // 요원
         collector.on('collect', async c => {
             if (!c.isButton()) return
-            let AGEmbed = new MessageEmbed()
+            let AGEmbed = new EmbedBuilder()
             let listN
             let suffix = ""
             await c.deferUpdate()
@@ -399,7 +398,7 @@ async function Int_statics(int = require(Interaction)) {
         // 무기
         collector.on('collect', async c => {
             if (!c.isButton()) return
-            let WEmbed = new MessageEmbed()
+            let WEmbed = new EmbedBuilder()
             let suffix = ""
             let listN
             if (!c.customId === "WBack" || !c.customId === "WNext") return
@@ -523,7 +522,7 @@ async function Int_statics(int = require(Interaction)) {
         })
     }catch (e){
         await data.EError(int,int.commandName,int.channel.type === "DM" ? "DM" : int.guild.name,e)
-        let ue = new MessageEmbed()
+        let ue = new EmbedBuilder()
             .setTitle("⛔ 에러")
             .setDescription("에러가 발생했습니다 다시시도해주세요!")
             .setColor("#d94e2f")
